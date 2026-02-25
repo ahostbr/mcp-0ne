@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { HeaderBar } from './components/HeaderBar'
 import { BackendGrid } from './components/BackendGrid'
+import { StatsPanel } from './components/StatsPanel'
 import { AddBackendModal } from './components/AddBackendModal'
 import { ImportMcpJsonModal } from './components/ImportMcpJsonModal'
 import { ConfirmDialog } from './components/ConfirmDialog'
@@ -8,7 +9,7 @@ import { ToastContainer } from './components/ToastContainer'
 import { useBackendStore } from './stores/backend-store'
 
 export default function App() {
-  const { startPolling, stopPolling, removeBackend } = useBackendStore()
+  const { startPolling, stopPolling, removeBackend, theme } = useBackendStore()
 
   const [showAdd, setShowAdd] = useState(false)
   const [showImport, setShowImport] = useState(false)
@@ -20,8 +21,12 @@ export default function App() {
   }, [startPolling, stopPolling])
 
   return (
-    <div className="flex h-screen flex-col bg-background">
+    <div className={`flex h-screen flex-col bg-background relative theme-${theme}`}>
+      {/* Scanning line overlay */}
+      <div className="scanning-line"></div>
+
       <HeaderBar onAdd={() => setShowAdd(true)} onImport={() => setShowImport(true)} />
+      <StatsPanel />
       <BackendGrid onAdd={() => setShowAdd(true)} onRemove={(id) => setConfirmRemove(id)} />
 
       <AddBackendModal open={showAdd} onClose={() => setShowAdd(false)} />

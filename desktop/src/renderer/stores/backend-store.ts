@@ -9,8 +9,10 @@ interface BackendStore {
   serverConnected: boolean
   backends: Backend[]
   isLoading: boolean
+  theme: 'cyber' | 'optik'
 
   setServerUrl: (url: string) => void
+  setTheme: (theme: 'cyber' | 'optik') => void
   fetchServerInfo: () => Promise<void>
   fetchBackends: () => Promise<void>
   addBackend: (id: string, payload: AddBackendPayload) => Promise<void>
@@ -27,6 +29,10 @@ const savedUrl = typeof localStorage !== 'undefined'
   ? localStorage.getItem('mcp0ne-server-url') || 'http://localhost:8150'
   : 'http://localhost:8150'
 
+const savedTheme = typeof localStorage !== 'undefined'
+  ? (localStorage.getItem('mcp0ne-theme') as 'cyber' | 'optik') || 'cyber'
+  : 'cyber'
+
 // Initialize api with saved URL
 api.setBaseUrl(savedUrl)
 
@@ -36,6 +42,7 @@ export const useBackendStore = create<BackendStore>((set, get) => ({
   serverConnected: false,
   backends: [],
   isLoading: false,
+  theme: savedTheme,
 
   setServerUrl: (url) => {
     api.setBaseUrl(url)
@@ -44,6 +51,11 @@ export const useBackendStore = create<BackendStore>((set, get) => ({
     // Re-fetch with new URL
     get().fetchServerInfo()
     get().fetchBackends()
+  },
+
+  setTheme: (theme) => {
+    localStorage.setItem('mcp0ne-theme', theme)
+    set({ theme })
   },
 
   fetchServerInfo: async () => {

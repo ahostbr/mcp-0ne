@@ -4,36 +4,88 @@
   /* Core Colors */
   --background: #03030a;
   --foreground: #e0f0ff;
-  
+
   /* Component Backgrounds */
   --card: #0a0a16;
   --card-foreground: #e0f0ff;
   --muted: #111122;
   --muted-foreground: #6b86a3;
-  
+
   /* Borders & Inputs */
   --border: #222240;
   --input: #111122;
   --ring: #00f0ff;
-  
+
   /* Brand/Accent Colors (Neon) */
-  --primary: #00f0ff; /* Neon Cyan */
+  --primary: #00f0ff;
+  /* Neon Cyan */
   --primary-foreground: #00111a;
-  --secondary: #ff0055; /* Neon Pink */
+  --secondary: #ff0055;
+  /* Neon Pink */
   --secondary-foreground: #1a0005;
-  
+
   /* Status Colors */
   --destructive: #ff3333;
   --destructive-foreground: #ffffff;
   --success: #00ff66;
   --warning: #ffcc00;
   --info: #00f0ff;
-  
+
   /* Effects */
   --neon-glow-primary: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
   --neon-glow-secondary: 0 0 10px rgba(255, 0, 85, 0.5), 0 0 20px rgba(255, 0, 85, 0.3);
   --neon-glow-success: 0 0 10px rgba(0, 255, 102, 0.5);
   --neon-glow-destructive: 0 0 10px rgba(255, 51, 51, 0.5);
+  --neon-glow-warning: 0 0 10px rgba(255, 204, 0, 0.5);
+  --neon-glow-info: 0 0 10px rgba(0, 240, 255, 0.5);
+
+  --neon-drop-primary: 0 0 5px rgba(0, 240, 255, 0.5);
+  --neon-drop-secondary: 0 0 5px rgba(255, 0, 85, 0.5);
+}
+
+.theme-optik {
+  /* Core Colors */
+  --background: #1B2028;
+  /* Deep dark charcoal */
+  --foreground: #F1F5F9;
+
+  /* Component Backgrounds */
+  --card: #222831;
+  /* Slightly lighter */
+  --card-foreground: #F1F5F9;
+  --muted: #2f3640;
+  --muted-foreground: #9CA3AF;
+
+  /* Borders & Inputs */
+  --border: #374151;
+  --input: #374151;
+  --ring: #3B82F6;
+
+  /* Brand/Accent Colors (Corporate AI) */
+  --primary: #3B82F6;
+  /* Solid Blue */
+  --primary-foreground: #ffffff;
+  --secondary: #10B981;
+  /* Solid Green */
+  --secondary-foreground: #ffffff;
+
+  /* Status Colors */
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+
+  /* Effects - Optik theme removes heavy neon glows */
+  --neon-glow-primary: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+  --neon-glow-secondary: 0 4px 14px 0 rgba(16, 185, 129, 0.39);
+  --neon-glow-success: 0 2px 8px 0 rgba(16, 185, 129, 0.3);
+  --neon-glow-destructive: 0 2px 8px 0 rgba(239, 68, 68, 0.3);
+  --neon-glow-warning: 0 2px 8px 0 rgba(245, 158, 11, 0.3);
+  --neon-glow-info: 0 2px 8px 0 rgba(59, 130, 246, 0.3);
+
+  --neon-drop-primary: none;
+  --neon-drop-secondary: none;
 }
 
 @theme {
@@ -76,7 +128,11 @@ body {
   letter-spacing: 0.02em;
 }
 
-h1, h2, h3, h4, .font-mono {
+h1,
+h2,
+h3,
+h4,
+.font-mono {
   font-family: var(--font-mono);
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -85,17 +141,15 @@ h1, h2, h3, h4, .font-mono {
 /* Background Effects */
 .bg-grid-pattern {
   background-size: 40px 40px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
 }
 
 .bg-scanlines {
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(0, 0, 0, 0.5) 51%
-  );
+  background: linear-gradient(to bottom,
+      transparent 50%,
+      rgba(0, 0, 0, 0.5) 51%);
   background-size: 100% 4px;
 }
 
@@ -103,15 +157,18 @@ h1, h2, h3, h4, .font-mono {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--background);
   border-left: 1px solid var(--border);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
   opacity: 0.5;
   border-radius: 0;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary);
   box-shadow: var(--neon-glow-secondary);
@@ -121,6 +178,7 @@ h1, h2, h3, h4, .font-mono {
 .titlebar-drag {
   -webkit-app-region: drag;
 }
+
 .titlebar-no-drag {
   -webkit-app-region: no-drag;
 }
@@ -129,6 +187,7 @@ h1, h2, h3, h4, .font-mono {
 .clip-chamfer {
   clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
+
 .clip-chamfer-reverse {
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
@@ -136,10 +195,14 @@ h1, h2, h3, h4, .font-mono {
 .neon-border {
   position: relative;
 }
+
 .neon-border::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border: 1px solid var(--primary);
   box-shadow: inset var(--neon-glow-primary), var(--neon-glow-primary);
   pointer-events: none;
@@ -147,27 +210,292 @@ h1, h2, h3, h4, .font-mono {
   transition: opacity 0.2s ease;
   z-index: 10;
 }
+
 .neon-border:hover::before {
   opacity: 1;
 }
 
 /* Pulse animation for connecting state */
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px currentColor); }
-  50% { opacity: 0.2; filter: none; }
+
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px currentColor);
+  }
+
+  50% {
+    opacity: 0.2;
+    filter: none;
+  }
 }
+
 .animate-pulse-dot {
   animation: pulse-dot 1.5s ease-in-out infinite;
 }
 
 @keyframes glitch {
-  0% { transform: translate(0) }
-  20% { transform: translate(-2px, 1px) }
-  40% { transform: translate(-1px, -1px) }
-  60% { transform: translate(2px, 1px) }
-  80% { transform: translate(1px, -1px) }
-  100% { transform: translate(0) }
+  0% {
+    transform: translate(0)
+  }
+
+  20% {
+    transform: translate(-2px, 1px)
+  }
+
+  40% {
+    transform: translate(-1px, -1px)
+  }
+
+  60% {
+    transform: translate(2px, 1px)
+  }
+
+  80% {
+    transform: translate(1px, -1px)
+  }
+
+  100% {
+    transform: translate(0)
+  }
 }
+
 .hover-glitch:hover {
   animation: glitch 0.2s linear infinite;
+}
+
+/* ── Staggered card entrance ── */
+@keyframes card-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-card-enter {
+  opacity: 0;
+  animation: card-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Fade in ── */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+/* ── Scanning line overlay ── */
+@keyframes scan-line {
+  0% {
+    top: -5%;
+  }
+
+  100% {
+    top: 105%;
+  }
+}
+
+.scanning-line {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0.08;
+  z-index: 998;
+  animation: scan-line 6s linear infinite;
+  pointer-events: none;
+  box-shadow: var(--neon-glow-primary);
+}
+
+.theme-optik .scanning-line {
+  display: none;
+}
+
+/* ── Corner tech decorations ── */
+.corner-deco::before,
+.corner-deco::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--primary);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.corner-deco::before {
+  top: 0;
+  left: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.corner-deco::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+.corner-deco:hover::before,
+.corner-deco:hover::after {
+  opacity: 0.8;
+  border-color: var(--secondary);
+}
+
+.theme-optik .corner-deco::before,
+.theme-optik .corner-deco::after {
+  display: none;
+}
+
+/* ── Breathing glow ── */
+@keyframes breathe {
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.1);
+  }
+
+  50% {
+    box-shadow: var(--neon-glow-primary);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.theme-optik .animate-breathe {
+  animation: none;
+  box-shadow: none;
+}
+
+/* ── Data stream effect on hover ── */
+@keyframes data-stream {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+.data-stream-bg:hover {
+  background-image:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(0, 240, 255, 0.02) 20%,
+      transparent 40%,
+      rgba(255, 0, 85, 0.02) 60%,
+      transparent 80%,
+      rgba(0, 240, 255, 0.02) 100%);
+  background-size: 100% 200%;
+  animation: data-stream 3s linear infinite;
+}
+
+.theme-optik .data-stream-bg:hover {
+  background-image: none;
+}
+
+/* ── Confirm dialog animations ── */
+@keyframes dialog-backdrop {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-dialog-backdrop {
+  animation: dialog-backdrop 0.2s ease-out forwards;
+}
+
+.animate-dialog-enter {
+  animation: dialog-enter 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Toast slide in ── */
+@keyframes toast-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(100%) scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.animate-toast-enter {
+  animation: toast-enter 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Cyberpunk flicker for status dots ── */
+@keyframes status-flicker {
+  0% {
+    opacity: 1;
+  }
+
+  92% {
+    opacity: 1;
+  }
+
+  93% {
+    opacity: 0.2;
+  }
+
+  94% {
+    opacity: 1;
+  }
+
+  96% {
+    opacity: 0.4;
+  }
+
+  97% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-status-flicker {
+  animation: status-flicker 5s ease-in-out infinite;
 }
