@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-0ne"
+version = "0.1.0"
+description = "MCP Gateway - One server to multiplex N backend MCP servers"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.23.0",
+    "httpx>=0.25.0",
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+mcp-0ne = "mcp_0ne.server:main"

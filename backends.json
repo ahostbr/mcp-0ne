@@ -1,0 +1,73 @@
+{
+  "backends": {
+    "kuroryuu": {
+      "type": "http",
+      "prefix": "kuroryuu",
+      "url": "http://127.0.0.1:8100/mcp",
+      "enabled": true
+    },
+    "KURORYUU_STDIO_MCP": {
+      "type": "stdio",
+      "prefix": "kuroryuu_stdio_mcp",
+      "command": "E:\\SAS\\CLONE\\Kuroryuu-master\\.venv_mcp312\\Scripts\\python.exe",
+      "args": [
+        "E:\\SAS\\CLONE\\Kuroryuu-master\\apps\\mcp_stdio\\server.py"
+      ],
+      "env": {
+        "KURORYUU_RAG_USE_RG": "1",
+        "KURORYUU_PROJECT_ROOT": "E:\\SAS\\CLONE\\Kuroryuu-master"
+      },
+      "enabled": false
+    },
+    "SOTS_MCP_CORE": {
+      "type": "stdio",
+      "prefix": "sots_mcp_core",
+      "command": "E:\\SAS\\ShadowsAndShurikens\\.venv_mcp312\\Scripts\\python.exe",
+      "args": [
+        "E:\\SAS\\ShadowsAndShurikens\\DevTools\\python\\sots_mcp_server\\server.py"
+      ],
+      "env": {
+        "SOTS_MCP_ROLE": "assistant",
+        "SOTS_MCP_SUBPROCESS_TIMEOUT_S": "60",
+        "SOTS_MCP_RAG_QUERY_TIMEOUT_S": "60",
+        "SOTS_MCP_PYTHON_EXE": "E:\\SAS\\ShadowsAndShurikens\\.venv_mcp312\\Scripts\\python.exe",
+        "SOTS_PROJECT_ROOT": "E:\\SAS\\ShadowsAndShurikens",
+        "SOTS_ALLOW_DEVTOOLS_RUN": "1",
+        "SOTS_ALLOW_APPLY": "1"
+      },
+      "enabled": true
+    },
+    "SOTS_BPGEN": {
+      "type": "stdio",
+      "prefix": "sots_bpgen",
+      "command": "E:\\SAS\\ShadowsAndShurikens\\.venv_mcp312\\Scripts\\python.exe",
+      "args": [
+        "E:\\SAS\\ShadowsAndShurikens\\DevTools\\python\\sots_bpgen_mcp\\server.py"
+      ],
+      "env": {
+        "SOTS_PROJECT_ROOT": "E:\\SAS\\ShadowsAndShurikens"
+      },
+      "enabled": true
+    },
+    "VibeUE": {
+      "type": "stdio",
+      "prefix": "vibeue",
+      "command": "E:\\SAS\\ShadowsAndShurikens\\.venv_mcp312\\Scripts\\python.exe",
+      "args": [
+        "E:\\SAS\\ShadowsAndShurikens\\DevTools\\python\\vibeue_mcp_proxy\\server.py"
+      ],
+      "env": {
+        "VIBEUE_HOST": "127.0.0.1",
+        "VIBEUE_PORT": "8080",
+        "VIBEUE_TIMEOUT": "60"
+      },
+      "enabled": true
+    }
+  },
+  "settings": {
+    "separator": "__",
+    "lazy_connect": true,
+    "tool_cache_ttl": 60,
+    "log_level": "info"
+  }
+}
