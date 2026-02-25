@@ -55,7 +55,9 @@ function stopServer() {
   }
 }
 function createWindow() {
+  const windowIcon = path.join(__dirname, "../../resources/ico.ico");
   const win = new electron.BrowserWindow({
+    icon: windowIcon,
     width: 1100,
     height: 720,
     minWidth: 500,

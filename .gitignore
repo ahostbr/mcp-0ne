@@ -15,3 +15,6 @@ env/
 .ruff_cache/
 .pytest_cache/
 /desktop/node_modules
+/desktop/release
+/desktop/out
+/desktop/out

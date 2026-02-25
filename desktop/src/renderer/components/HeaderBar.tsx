@@ -20,7 +20,7 @@ export function HeaderBar({ onAdd, onImport }: HeaderBarProps) {
   }
 
   return (
-    <div className="titlebar-drag flex h-16 pt-2 items-center gap-4 border-b border-primary/30 bg-card/80 px-4 pr-[140px] shrink-0 backdrop-blur-md relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-primary before:to-transparent before:opacity-50">
+    <div className="titlebar-drag flex h-[88px] pt-8 items-center gap-4 border-b border-primary/30 bg-card/80 px-4 pr-[140px] shrink-0 backdrop-blur-md relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-primary before:to-transparent before:opacity-50">
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-secondary/50 via-primary/50 to-transparent"></div>
 
@@ -112,7 +112,7 @@ export function HeaderBar({ onAdd, onImport }: HeaderBarProps) {
 
       {/* URL input overlay */}
       {showUrlInput && (
-        <div className="titlebar-no-drag absolute left-4 top-14 z-50 flex items-center gap-2 border border-primary bg-background/95 p-3 shadow-[0_0_20px_rgba(0,240,255,0.15)] clip-chamfer backdrop-blur-xl">
+        <div className="titlebar-no-drag absolute left-4 top-full mt-2 z-50 flex items-center gap-2 border border-primary bg-background/95 p-3 shadow-[0_0_20px_rgba(0,240,255,0.15)] clip-chamfer backdrop-blur-xl">
           <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,240,255,0.03)_50%,transparent_75%,transparent_100%)] bg-[length:4px_4px] pointer-events-none"></div>
           <input
             className="h-8 w-64 border-b border-primary/50 bg-background/50 px-2 font-mono text-xs text-primary focus:border-primary focus:outline-none focus:shadow-[0_4px_10px_-4px_rgba(0,240,255,0.3)] transition-all"

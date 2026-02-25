@@ -56,7 +56,9 @@ function stopServer(): void {
 
 // ── Window ──────────────────────────────────────────────────────────
 function createWindow(): void {
+  const windowIcon = join(__dirname, '../../resources/ico.ico')
   const win = new BrowserWindow({
+    icon: windowIcon,
     width: 1100,
     height: 720,
     minWidth: 500,
@@ -139,3 +141,4 @@ app.on('window-all-closed', () => {
 app.on('before-quit', () => {
   stopServer()
 })
+

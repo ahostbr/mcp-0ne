@@ -41,12 +41,14 @@
   "build": {
     "appId": "com.mcp0ne.desktop",
     "productName": "mcp-0ne",
+    "afterPack": "scripts/afterPack-win-rcedit.cjs",
     "directories": {
       "output": "release"
     },
     "win": {
       "target": "nsis",
-      "icon": "resources/icon.ico"
+      "icon": "resources/ico.ico",
+      "signAndEditExecutable": false
     }
   }
 }
