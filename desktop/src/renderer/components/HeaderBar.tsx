@@ -20,7 +20,7 @@ export function HeaderBar({ onAdd, onImport }: HeaderBarProps) {
   }
 
   return (
-    <div className="titlebar-drag flex h-[88px] pt-8 items-center gap-4 border-b border-primary/30 bg-card/80 px-4 pr-[140px] shrink-0 backdrop-blur-md relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-primary before:to-transparent before:opacity-50">
+    <div className="titlebar-drag flex h-[96px] pt-10 items-center gap-4 border-b border-primary/30 bg-card/80 px-4 pr-[140px] shrink-0 backdrop-blur-md relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-primary before:to-transparent before:opacity-50">
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-secondary/50 via-primary/50 to-transparent"></div>
 

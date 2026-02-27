@@ -62,6 +62,20 @@
         "VIBEUE_TIMEOUT": "60"
       },
       "enabled": true
+    },
+    "litememory": {
+      "type": "stdio",
+      "prefix": "vault",
+      "command": "node",
+      "args": [
+        "C:\\Projects\\LiteMemory\\server.js"
+      ],
+      "env": {
+        "OBSIDIAN_VAULT_PATH": "C:\\Users\\Ryan\\Documents\\Obsidian Vault",
+        "LM_STUDIO_URL": "http://localhost:1234"
+      },
+      "enabled": true,
+      "description": "Obsidian vault operations + RAG semantic search for LiteMemory second brain"
     }
   },
   "settings": {
