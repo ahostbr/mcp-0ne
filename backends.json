@@ -6,19 +6,6 @@
       "url": "http://127.0.0.1:8100/mcp",
       "enabled": true
     },
-    "KURORYUU_STDIO_MCP": {
-      "type": "stdio",
-      "prefix": "kuroryuu_stdio_mcp",
-      "command": "E:\\SAS\\CLONE\\Kuroryuu-master\\.venv_mcp312\\Scripts\\python.exe",
-      "args": [
-        "E:\\SAS\\CLONE\\Kuroryuu-master\\apps\\mcp_stdio\\server.py"
-      ],
-      "env": {
-        "KURORYUU_RAG_USE_RG": "1",
-        "KURORYUU_PROJECT_ROOT": "E:\\SAS\\CLONE\\Kuroryuu-master"
-      },
-      "enabled": false
-    },
     "SOTS_MCP_CORE": {
       "type": "stdio",
       "prefix": "sots_mcp_core",

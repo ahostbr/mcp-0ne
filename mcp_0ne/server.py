@@ -13,10 +13,10 @@ from typing import Any, Sequence
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from mcp.server import Server as McpServer
-from mcp.server.streamable_http import StreamableHTTPServerTransport
+from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
 from mcp.types import Tool, TextContent
-from starlette.requests import Request as StarletteRequest
 from starlette.routing import Route
+from starlette.types import Receive, Scope, Send
 
 from . import __version__
 from .api import router as api_router, set_registry
@@ -32,13 +32,15 @@ protocol = GatewayProtocol(registry)
 
 # ── MCP SDK Server (streamable HTTP transport) ─────────────────────
 mcp_server = McpServer("mcp-0ne")
-# Transport is created per-session in the request handler
 
 
 @mcp_server.list_tools()
 async def _mcp_list_tools() -> list[Tool]:
     """Return all gateway tools (admin + backend) via MCP SDK."""
-    await registry.ensure_all_connected()
+    # NOTE: Backends are connected eagerly at startup, NOT here.
+    # Calling ensure_all_connected() inside an MCP handler breaks anyio
+    # cancel scopes because ClientSession.__aenter__ pushes cancel scopes
+    # that outlive the request handler's responder scope.
     from .admin_tools import get_admin_tool_definitions
     raw_tools = list(get_admin_tool_definitions()) + list(registry.list_all_tools())
     return [Tool(**t) for t in raw_tools]
@@ -63,16 +65,30 @@ async def _mcp_call_tool(name: str, arguments: dict[str, Any] | None = None) -> 
     return [TextContent(type="text", text=c.get("text", json.dumps(c))) for c in content]
 
 
+# ── Session manager — handles transport lifecycle via SDK ──────────
+session_manager = StreamableHTTPSessionManager(
+    app=mcp_server,
+    json_response=True,
+)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup: load config and connect backends. Shutdown: disconnect all."""
+    """Startup: load config, connect backends, start session manager. Shutdown: disconnect all."""
     logger.info("mcp-0ne starting up...")
     results = await registry.load_from_config()
     for backend_id, status in results.items():
         logger.info(f"  [{backend_id}] {status}")
+
+    # Eagerly connect all lazy backends BEFORE the session manager starts.
+    # This MUST happen outside MCP request handlers because backend connections
+    # enter ClientSession contexts with anyio cancel scopes that persist
+    # beyond the handler call, breaking the responder's cancel scope chain.
+    await registry.ensure_all_connected()
     logger.info(f"mcp-0ne ready — {len(registry.list_all_tools())} tools from {len(registry.list_backends())} backends")
 
-    yield
+    async with session_manager.run():
+        yield
 
     logger.info("mcp-0ne shutting down...")
     for info in registry.list_backends():
@@ -100,62 +116,11 @@ set_registry(registry)
 app.include_router(api_router)
 
 
-# ── Streamable HTTP MCP transport ───────────────────────────────────
-import asyncio
-import uuid
-
-# Session map: mcp-session-id → transport
-_http_transports: dict[str, StreamableHTTPServerTransport] = {}
-_session_tasks: dict[str, asyncio.Task] = {}
-
-
-async def _run_mcp_session(transport: StreamableHTTPServerTransport):
-    """Keep the transport's connect() context alive for the session lifetime."""
-    async with transport.connect() as (read_stream, write_stream):
-        await mcp_server.run(
-            read_stream, write_stream, mcp_server.create_initialization_options()
-        )
-
-
-async def _handle_mcp_http(request: StarletteRequest):
-    """POST/GET/DELETE /mcp — MCP streamable HTTP transport."""
-    session_id = request.headers.get("mcp-session-id")
-
-    if request.method == "GET":
-        if session_id and session_id in _http_transports:
-            transport = _http_transports[session_id]
-            await transport.handle_request(request.scope, request.receive, request._send)
-        else:
-            from starlette.responses import JSONResponse
-            resp = JSONResponse({"error": "No session"}, status_code=400)
-            await resp(request.scope, request.receive, request._send)
-        return
-
-    if request.method == "DELETE":
-        if session_id and session_id in _http_transports:
-            transport = _http_transports.pop(session_id)
-            task = _session_tasks.pop(session_id, None)
-            await transport.handle_request(request.scope, request.receive, request._send)
-            if task:
-                task.cancel()
-        return
-
-    # POST — main request path
-    if session_id and session_id in _http_transports:
-        transport = _http_transports[session_id]
-        await transport.handle_request(request.scope, request.receive, request._send)
-    else:
-        # New session — create transport, start server.run in background
-        new_id = f"mcp0ne-{uuid.uuid4().hex[:12]}"
-        transport = StreamableHTTPServerTransport(new_id, is_json_response_enabled=True)
-        _http_transports[new_id] = transport
-        _session_tasks[new_id] = asyncio.create_task(_run_mcp_session(transport))
-        # Small yield to let connect() establish before handling the request
-        await asyncio.sleep(0.01)
-        await transport.handle_request(request.scope, request.receive, request._send)
-
-
-app.routes.insert(0, Route("/mcp", endpoint=_handle_mcp_http, methods=["GET", "POST", "DELETE"]))
+# ── Streamable HTTP MCP transport (via SDK session manager) ────────
+# Register /mcp as a raw ASGI route — session_manager.handle_request writes directly to send
+_mcp_route = Route("/mcp", endpoint=lambda r: None, methods=["GET", "POST", "DELETE"])
+_mcp_route.app = session_manager.handle_request
+app.router.routes.insert(0, _mcp_route)
 
 
 # ============================================================================
