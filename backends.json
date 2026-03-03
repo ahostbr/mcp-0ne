@@ -50,6 +50,16 @@
       },
       "enabled": true
     },
+    "liteimage": {
+      "type": "stdio",
+      "prefix": "liteimage",
+      "command": "node",
+      "args": [
+        "C:\\Projects\\LiteImage\\dist\\mcp\\index.js"
+      ],
+      "enabled": true,
+      "description": "LiteImage local diffusion image generation engine"
+    },
     "litememory": {
       "type": "stdio",
       "prefix": "vault",
