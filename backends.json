@@ -50,29 +50,15 @@
       },
       "enabled": true
     },
-    "liteimage": {
+    "lite_mcp": {
       "type": "stdio",
-      "prefix": "liteimage",
-      "command": "node",
+      "prefix": "lite",
+      "command": "python",
       "args": [
-        "C:\\Projects\\LiteImage\\dist\\mcp\\index.js"
+        "C:\\Projects\\lite_mcp\\server.py"
       ],
       "enabled": true,
-      "description": "LiteImage local diffusion image generation engine"
-    },
-    "litememory": {
-      "type": "stdio",
-      "prefix": "vault",
-      "command": "node",
-      "args": [
-        "C:\\Projects\\LiteMemory\\server.js"
-      ],
-      "env": {
-        "OBSIDIAN_VAULT_PATH": "C:\\Users\\Ryan\\Documents\\Obsidian Vault",
-        "LM_STUDIO_URL": "http://localhost:1234"
-      },
-      "enabled": true,
-      "description": "Obsidian vault operations + RAG semantic search for LiteMemory second brain"
+      "description": "Consolidated Lite suite — vault, image, editor, terminal, notion, chronicle, rag"
     }
   },
   "settings": {
