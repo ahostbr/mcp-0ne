@@ -50,12 +50,12 @@
       },
       "enabled": true
     },
-    "lite_mcp": {
+    "LiteMCP": {
       "type": "stdio",
       "prefix": "lite",
       "command": "python",
       "args": [
-        "C:\\Projects\\lite_mcp\\server.py"
+        "C:\\Projects\\LiteMCP\\server.py"
       ],
       "enabled": true,
       "description": "Consolidated Lite suite — vault, image, editor, terminal, notion, chronicle, rag"
